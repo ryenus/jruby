@@ -215,7 +215,7 @@ public class ShellLauncher {
         return getCurrentEnv(runtime, null);
     }
 
-    private static String[] getCurrentEnv(Ruby runtime, Map mergeEnv) {
+    public static String[] getCurrentEnv(Ruby runtime, Map mergeEnv) {
         ThreadContext context = runtime.getCurrentContext();
 
         // disable tracing for the dup call below

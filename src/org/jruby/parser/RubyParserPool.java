@@ -36,6 +36,24 @@ import org.jruby.CompatVersion;
 public class RubyParserPool {
     private static RubyParserPool instance = new RubyParserPool();
 
+    private final ThreadLocal<DefaultRubyParser> defaultRubyParser = new ThreadLocal<DefaultRubyParser>() {
+        protected DefaultRubyParser initialValue() {
+            return new DefaultRubyParser();
+        };
+    };
+
+    private final ThreadLocal<Ruby19Parser> ruby19Parser = new ThreadLocal<Ruby19Parser>() {
+        protected Ruby19Parser initialValue() {
+            return new Ruby19Parser();
+        };
+    };
+
+    private final ThreadLocal<Ruby20Parser> ruby20Parser = new ThreadLocal<Ruby20Parser>() {
+        protected Ruby20Parser initialValue() {
+            return new Ruby20Parser();
+        };
+    };
+
     /**
      * Constructor for RubyParserPool.
      */
@@ -47,19 +65,20 @@ public class RubyParserPool {
     }
 
     public DefaultRubyParser borrowParser() {
-        return new DefaultRubyParser();
+        return defaultRubyParser.get();
     }
 
     public RubyParser borrowParser(CompatVersion version) {
         if (version == CompatVersion.RUBY1_8) {
-            return new DefaultRubyParser();
+            return defaultRubyParser.get();
         } else if (version == CompatVersion.RUBY1_9) {
-            return new Ruby19Parser();
+            return ruby19Parser.get();
         } else {
-            return new Ruby20Parser();
+            return ruby20Parser.get();
         }
     }
 
+    @Deprecated
     public void returnParser(RubyParser parser) {
     }
 }

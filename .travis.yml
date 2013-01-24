@@ -2,7 +2,7 @@ language: java
 before_script:
   - unset GEM_PATH GEM_HOME IRBRC
   - "export PATH=`pwd`/bin:$PATH"
-  - ulimit -a
+  - ulimit -s 1024
 # disable cext
 env: JAVA_OPTS="-server -Djruby.cext.enabled=false"
 jdk:

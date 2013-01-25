@@ -4,7 +4,7 @@ before_script:
   - "export PATH=`pwd`/bin:$PATH"
   - ulimit -s 1024
 after_failure:
-  - cat /proc/user_beancounters
+  - sudo cat /proc/user_beancounters
 # disable cext
 env: JAVA_OPTS="-server -Djruby.cext.enabled=false"
 jdk:

@@ -10,7 +10,7 @@ env: JAVA_OPTS="-server -Djruby.cext.enabled=false"
 jdk:
   - oraclejdk7
 #  - openjdk6
-script: "ant test-extended"
+script: "ant install-jruby-launcher-gem test-extended"
 install: /bin/true
 notifications:
   irc:
